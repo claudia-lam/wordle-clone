@@ -6,7 +6,7 @@ import React from "react";
  * - none
  *
  * State:
- * - none
+ * - formValue: 5 letter string
  *
  * Game -> GuessForm
  */
@@ -17,20 +17,22 @@ function GuessForm() {
   const [formValue, setFormValue] = React.useState(formInitialVal);
   console.log(formValue, 'formValue');
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log({ formValue });
+    setFormValue(formInitialVal);
+  }
+
   return (
     <form
       className="guess-input-wrapper"
-      onSubmit={(event) => {
-        event.preventDefault();
-        console.log("the word: ", formValue);
-        setFormValue(formInitialVal);
-      }}
+      onSubmit={handleSubmit}
     >
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         id="guess-input"
         type="text"
-        pattern="\w{5,5}"
+        pattern="[a-zA-Z]{5,5}"
         value={formValue}
         title="please enter a 5 letter word"
         onChange={(event) => (
